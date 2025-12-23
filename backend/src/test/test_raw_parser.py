@@ -54,7 +54,9 @@ def test_raw_parser():
     assert info.episode == 9
     assert info.season == 1
 
-    content = "[梦蓝字幕组]New Doraemon 哆啦A梦新番[747][2023.02.25][AVC][1080P][GB_JP][MP4]"
+    content = (
+        "[梦蓝字幕组]New Doraemon 哆啦A梦新番[747][2023.02.25][AVC][1080P][GB_JP][MP4]"
+    )
     info = raw_parser(content)
     assert info.group == "梦蓝字幕组"
     assert info.title_zh == "哆啦A梦新番"
@@ -63,7 +65,9 @@ def test_raw_parser():
     assert info.episode == 747
     assert info.season == 1
 
-    content = "[织梦字幕组][尼尔：机械纪元 NieR Automata Ver1.1a][02集][1080P][AVC][简日双语]"
+    content = (
+        "[织梦字幕组][尼尔：机械纪元 NieR Automata Ver1.1a][02集][1080P][AVC][简日双语]"
+    )
     info = raw_parser(content)
     assert info.group == "织梦字幕组"
     assert info.title_zh == "尼尔：机械纪元"
@@ -106,6 +110,3 @@ def test_raw_parser():
     assert info.resolution == "1080P"
     assert info.episode == 1
     assert info.season == 1
-
-
-

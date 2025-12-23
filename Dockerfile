@@ -10,7 +10,9 @@ ENV LANG="C.UTF-8" \
 
 WORKDIR /app
 
-COPY backend/requirements.txt .
+COPY backend/pyproject.toml .
+COPY backend/uv.lock .
+
 RUN set -ex && \
     apk add --no-cache \
         bash \
@@ -25,6 +27,8 @@ RUN set -ex && \
         openssl \
         tzdata && \
     python3 -m pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir uv && \
+    uv export --format requirements-txt --output-file requirements.txt && \
     sed -i '/bcrypt/d' requirements.txt && \
     pip install --no-cache-dir -r requirements.txt && \
     # Add user
