@@ -1,5 +1,4 @@
 import pytest
-
 from module.conf import settings
 from module.parser.title_parser import TitleParser
 

@@ -1,14 +1,14 @@
-import asyncio
 import logging
+import asyncio
 
 from module.conf import VERSION, settings
 from module.models import ResponseModel
 from module.update import (
-    cache_image,
     data_migration,
     first_run,
     from_30_to_31,
     start_up,
+    cache_image,
 )
 
 from .sub_thread import RenameThread, RSSThread

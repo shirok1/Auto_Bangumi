@@ -1,7 +1,6 @@
 import sys
 
 import pytest
-
 from module.parser.analyser import torrent_parser
 from module.parser.analyser.torrent_parser import get_path_basename
 

@@ -6,13 +6,17 @@ ENV LANG="C.UTF-8" \
     TZ=Asia/Shanghai \
     PUID=1000 \
     PGID=1000 \
-    UMASK=022
+    UMASK=022 \
+    UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
+    PATH="/app/.venv/bin:$PATH"
 
 WORKDIR /app
 
-COPY backend/pyproject.toml .
-COPY backend/uv.lock .
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
+# Install system dependencies
 RUN set -ex && \
     apk add --no-cache \
         bash \
@@ -20,27 +24,27 @@ RUN set -ex && \
         python3 \
         py3-aiohttp \
         py3-bcrypt \
-        py3-pip \
         su-exec \
         shadow \
         tini \
         openssl \
         tzdata && \
-    python3 -m pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir uv && \
-    uv export --format requirements-txt --output-file requirements.txt && \
-    sed -i '/bcrypt/d' requirements.txt && \
-    pip install --no-cache-dir -r requirements.txt && \
-    # Add user
     mkdir -p /home/ab && \
     addgroup -S ab -g 911 && \
-    adduser -S ab -G ab -h /home/ab -s /sbin/nologin -u 911 && \
+    adduser -S ab -G ab -h /home/ab -s /sbin/nologin -u 911
+
+# Install dependencies
+COPY backend/pyproject.toml backend/uv.lock ./
+RUN uv sync --frozen --no-install-project --no-dev
+
+# Install application
+COPY backend/src/. ./
+RUN uv sync --frozen --no-dev && \
     # Clear
     rm -rf \
         /root/.cache \
         /tmp/*
 
-COPY --chmod=755 backend/src/. .
 COPY --chmod=755 entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["tini", "-g", "--", "/entrypoint.sh"]
