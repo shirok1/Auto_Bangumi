@@ -1,0 +1,56 @@
+{
+    "program": {
+        "rss_time": 900,
+        "rename_time": 60,
+        "webui_port": 7892
+    },
+    "downloader": {
+        "type": "qbittorrent",
+        "host": "172.17.0.1:8080",
+        "username": "admin",
+        "password": "adminadmin",
+        "path": "/downloads/Bangumi",
+        "ssl": false
+    },
+    "rss_parser": {
+        "enable": true,
+        "filter": [
+            "720",
+            "\\d+-\\d"
+        ],
+        "language": "zh"
+    },
+    "bangumi_manage": {
+        "enable": true,
+        "eps_complete": false,
+        "rename_method": "pn",
+        "group_tag": false,
+        "remove_bad_torrent": false
+    },
+    "log": {
+        "debug_enable": false
+    },
+    "proxy": {
+        "enable": false,
+        "type": "http",
+        "host": "",
+        "port": 0,
+        "username": "",
+        "password": ""
+    },
+    "notification": {
+        "enable": false,
+        "type": "telegram",
+        "token": "",
+        "chat_id": ""
+    },
+    "experimental_openai": {
+        "enable": false,
+        "api_key": "",
+        "api_base": "https://api.openai.com/v1",
+        "api_type": "openai",
+        "api_version": "2023-05-15",
+        "model": "gpt-3.5-turbo",
+        "deployment_id": ""
+    }
+}

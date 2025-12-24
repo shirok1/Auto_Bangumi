@@ -1,3 +1,30 @@
+[project]
+name = "AutoBangumi"
+version = "0.1.0"
+description = "Automated anime downloader and manager"
+authors = [{name = "EstrellaXD"}]
+requires-python = ">=3.10"
+dependencies = [
+    "anyio==3.7.0",
+    "aria2p",
+    "bcrypt==4.0.1",
+    "bs4==0.0.1",
+    "fastapi==0.97.0",
+    "jinja2==3.1.2",
+    "openai==0.28.1",
+    "passlib==1.7.4",
+    "pydantic~=1.10",
+    "python-dotenv==1.0.0",
+    "python-jose==3.3.0",
+    "python-multipart==0.0.6",
+    "qbittorrent-api==2023.9.53",
+    "requests==2.31.0",
+    "semver==3.0.1",
+    "sqlmodel==0.0.8",
+    "sse-starlette==1.6.5",
+    "uvicorn==0.22.0",
+]
+
 [tool.ruff]
 select = [
     # pycodestyle(E): https://beta.ruff.rs/docs/rules/#pycodestyle-e-w
@@ -58,6 +85,15 @@ target-version = "py310"
 # Unlike Flake8, default to a complexity level of 10.
 max-complexity = 10
 
-[tool.black]
-line-length = 88
-target-version = ['py310', 'py311']
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.5.1",
+    "pytest>=9.0.2",
+    "ruff>=0.14.10",
+]

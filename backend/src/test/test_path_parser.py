@@ -8,5 +8,3 @@ def test_path_to_bangumi():
     bangumi_name, season = TorrentPath()._path_to_bangumi(path)
     assert bangumi_name == "Kono Subarashii Sekai ni Shukufuku wo!"
     assert season == 2
-
-
